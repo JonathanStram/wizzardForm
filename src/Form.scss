@@ -1,0 +1,94 @@
+.pf-form-wrapper{
+    margin-top: 40px;
+    justify-content: space-between;
+}
+
+div.is-quarter {
+    
+    margin-bottom: 25px;
+    display: flex;
+    @media (max-width: 575px) {
+      flex-direction: column;
+    }
+  }
+
+.input-column{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.inpust-row{
+    display: flex;
+    justify-content: space-between;
+    .is-quarter{
+        width: 48%;
+    }
+}
+
+.input, .mail-input{
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+}
+
+select{
+    overflow: hidden;
+    height: 40px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+    position: relative;
+    &::after{
+        position: absolute;
+        top: 45%;
+        right: 20px;
+        content: '';
+        width: 10px;
+        height: 10px;
+        border-right: 2px solid #595959;
+        border-bottom: 2px solid #595959;
+        transform: rotate(45deg) translateX(-45%);
+        transition: .2s ease-in-out;
+    }
+}
+
+.email-input, .select-input{
+    position: relative;
+    span{
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        opacity: 0.5;
+        pointer-events: none;
+    }
+}
+
+input {
+    box-sizing: border-box;
+    height: 40px;
+    border: 1px solid #999999;
+    border-radius: 3px;
+    padding: 12px;
+    font-size: 16px;
+    transition: 0.1s;
+    &:focus {
+        border-color: none;
+        box-shadow: none;
+        background-color: #F2F2F2;
+        transition: 0.1s;
+    }
+}
+
+label{
+    margin-bottom: 4px;
+}
+
+.acception-row{
+    align-items: center;
+    input{
+        margin-right: 10px;
+        height: 20px;
+    }
+}
