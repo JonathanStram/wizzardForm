@@ -16,12 +16,19 @@ class Card extends React.Component {
         this.state = {
             title     : 'Shipping & billing details',
             subtitle  : 'You can change the shipping method',
-            showModal : false
+            showModal : false,
+            term      : ''
         }
-        this.handleShow = this.handleShow.bind(this);
-        this.handleHide = this.handleHide.bind(this);
-        this.formIsSubmited = this.formIsSubmited.bind(this)
-        this.cardNumberInputs = this.cardNumberInputs.bind(this)
+        this.handleTermChange             = this.handleTermChange.bind(this);
+        this.handleShow                   = this.handleShow.bind(this);
+        this.handleHide                   = this.handleHide.bind(this);
+        this.formIsSubmited               = this.formIsSubmited.bind(this)
+        this.getValueFromCardNumberInputs = this.getValueFromCardNumberInputs.bind(this)
+        this.cardNumberInputsRef1         = React.createRef();
+        this.cardNumberInputsRef2         = React.createRef();
+        this.cardNumberInputsRef3         = React.createRef();
+        this.cardNumberInputsRef4         = React.createRef();
+
     }
 
 
@@ -35,15 +42,21 @@ class Card extends React.Component {
 
 
     formIsSubmited(){
-        console.log('hello',this.props.handleClick, this.props.handleClick.cardNumber);
+        console.log(this.props.handleClick);
         this.setState({showModal: true});
     }
 
-    
-    cardNumberInputs(){
-        console.log('hello');
+    handleTermChange(e) {
+        this.setState({term: e.target.value});
+    }
 
-
+    getValueFromCardNumberInputs(){
+        let valueBacket = '';
+        valueBacket = this.cardNumberInputsRef1.current.value + ' '
+                    + this.cardNumberInputsRef2.current.value + ' '
+                    + this.cardNumberInputsRef3.current.value + ' '
+                    + this.cardNumberInputsRef4.current.value + ' '
+        this.props.handleClick.cardNumber = valueBacket
     }
 
 
@@ -75,6 +88,7 @@ class Card extends React.Component {
             let inputCollections = document.querySelectorAll('.inputs');
             let onCVVSwitcherFlag = true;
             let onFocusInputs = true;
+
             
             for(let i = 0; i<inputCollections.length; i++){
                 if((inputCollections[i]).value.length === 4){
@@ -94,7 +108,6 @@ class Card extends React.Component {
                 }
                 
             }
-            console.log(document.querySelectorAll('.inputs'))
         }
 
         let dateInput = React.createRef();
@@ -108,15 +121,18 @@ class Card extends React.Component {
                 maskFlag = false;
                 console.log('2',maskFlag)
               }
-            console.log(dateInput)
         }
 
-        let numberInputs =[]
-        for (let i = 0; i < 4; i++){
-            numberInputs.push(<input key={[i]} type="text" name="cardNumber" value={this.props.cardNumber } 
-            onChange={this.props.changeFormValue} maxLength="4" inputMode='numeric' className="form-control contact-input inputs"/> )
-            
-        }        
+        // let numberInputs =[]
+        //  for (let i = 0; i < 4; i++){
+        //      numberInputs.push( 
+
+        //     <input  ref={this.cardNumberInputsRef1} type="text" name="cardNumber" 
+        //     value={this.props.cardNumber} onChange={ 
+        //         this.getValueFromCardNumberInputs
+        //     } maxLength="4" inputMode='numeric' className="form-control contact-input inputs"/>
+        //  )
+        // }        
         
         return (
             <div className="Card">
@@ -173,7 +189,39 @@ class Card extends React.Component {
                                                 
                                                     <div className="card-number" onInput={nextTab} >
                                                         <label className="inputLabel" aria-label="Phone">Card number</label>
-                                                            {numberInputs}
+                                                        <input  
+                                                            ref={this.cardNumberInputsRef1} type="text" name="cardNumber" 
+                                                            value={this.props.cardNumber} 
+                                                            onChange={ this.getValueFromCardNumberInputs} 
+                                                            maxLength="4" 
+                                                            inputMode='numeric' 
+                                                            className="form-control contact-input inputs"
+                                                        />
+                                                        <input  
+                                                            ref={this.cardNumberInputsRef2} type="text" name="cardNumber" 
+                                                            value={this.props.cardNumber} 
+                                                            onChange={ this.getValueFromCardNumberInputs} 
+                                                            maxLength="4"
+                                                            inputMode='numeric' 
+                                                            className="form-control contact-input inputs"
+                                                        />
+                                                        <input  
+                                                            ref={this.cardNumberInputsRef3} type="text" name="cardNumber" 
+                                                            value={this.props.cardNumber}
+                                                            onChange={this.getValueFromCardNumberInputs} 
+                                                            maxLength="4" 
+                                                            inputMode='numeric' 
+                                                            className="form-control contact-input inputs"
+                                                        />
+                                                        <input  
+                                                            ref={this.cardNumberInputsRef4} type="text" name="cardNumber" 
+                                                            value={this.props.cardNumber}
+                                                            onChange={ this.getValueFromCardNumberInputs}
+                                                            maxLength="4" 
+                                                            inputMode='numeric' 
+                                                            className="form-control contact-input inputs"
+                                                        />
+                                                            {/* {numberInputs} */}
                                                     </div>
                                                     <div className="card-data">
                                                         <div className="expiration-date">

@@ -23,7 +23,8 @@ class App extends React.Component {
         userAddressInput  : '',
         cardNumber        : [],
         cardCVV           : '',
-        cardExpireDate    : '' 
+        cardExpireDate    : '',
+        userAcceptTerms   : ''
       }
       this.changeFormValue = this.changeFormValue.bind(this);
       this.handleClick = this.handleClick.bind(this);
@@ -36,9 +37,13 @@ class App extends React.Component {
       if(e.target.name === "cardNumber"){
         this.setState({ cardNumber: [...this.state.cardNumber, value] })
       }
+      
   }
   handleClick (){ 
+    let i
+    this.setState ({cardNumber: [...this.state.cardNumber, i]})
     this.setState(this.state)
+    console.log(i);
   }
 
   render() {
@@ -58,9 +63,9 @@ class App extends React.Component {
 
 
 
-  componentDidMount() {
-    console.log(this.state)
-  }
+  // componentDidMount() {
+  //   console.log(this.state)
+  // }
 }
 
 

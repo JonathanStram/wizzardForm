@@ -49,7 +49,7 @@ class Form extends React.Component {
                             </div>
                             <div className="is-quarter">
                                 <div className="input">
-                                    <input value={this.props.userSurnameInput} name="userSurmameInput" onChange={this.props.changeFormValue} className="form-control contact-input"/>
+                                    <input value={this.props.userSurnameInput} name="userSurnameInput" onChange={this.props.changeFormValue} className="form-control contact-input"/>
                                     <label className="inputLabel" aria-label="SurName">{userLabel.userSurname}</label>
                                 </div>
                             </div>
@@ -138,7 +138,7 @@ class Form extends React.Component {
                                 <div className="is-quarter">
                                     <div className="input">
                                         <input value={this.props.userCityInput} name="userCityInput" onChange={this.props.changeFormValue} className="form-control contact-input"/>
-                                        <label className="inputLabel" aria-label="SurName">{userLabel.userCity}</label>
+                                        <label className="inputLabel" aria-label="City">{userLabel.userCity}</label>
                                     </div>
                                 </div>
                                 <div className="is-quarter">
@@ -150,12 +150,12 @@ class Form extends React.Component {
                             </div>
                             <div className="is-quarter">
                                 <div className="mail-input">
-                                    <input value={this.props.userAddressInput} name="userAddressInput" onChange={this.changeFormValue} className="form-control contact-input"/>
+                                    <input value={this.props.userAddressInput} name="userAddressInput" onChange={this.props.changeFormValue} className="form-control contact-input"/>
                                     <label className="inputLabel" aria-label="Address">{userLabel.userAddress}</label>
                                 </div>
                             </div>
                             <div className="acception-row row df">
-                                <input type="checkbox" name="" id=""/>
+                                <input name="userAcceptTerms" type="checkbox" onChange={this.props.changeFormValue} id=""/>
                                 <h6>I accept Terms and Service</h6>
                             </div>
                         </div>
