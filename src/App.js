@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Header from './Header';
 import Form from './Form';
 import './App.scss';
@@ -20,7 +20,10 @@ class App extends React.Component {
         userCountryInput  : '',
         userCityInput     : '',
         userPostCodeInput : '',
-        userAddressInput  : ''
+        userAddressInput  : '',
+        cardNumber        : [],
+        cardCVV           : '',
+        cardExpireDate    : '' 
       }
       this.changeFormValue = this.changeFormValue.bind(this);
       this.handleClick = this.handleClick.bind(this);
@@ -30,10 +33,13 @@ class App extends React.Component {
     const {name, value}=e.target
     e.preventDefault();
     this.setState({ [name]: value })
+      if(e.target.name === "cardNumber"){
+        this.setState({ cardNumber: [...this.state.cardNumber, value] })
+      }
   }
-
-
-
+  handleClick (){ 
+    this.setState(this.state)
+  }
 
   render() {
     
@@ -43,18 +49,18 @@ class App extends React.Component {
         <Header />
         <div className="pf-container">
           <Route exact path="/" render={ () => <Form handleClick={this.state}  changeFormValue={this.changeFormValue} />}/>
-          <Route exact path="/Card" render={ () => <Card handleClick={this.state} /> }/>
+          <Route exact path="/Card" render={ () => <Card handleClick={this.state} changeFormValue={this.changeFormValue}/> }/>
         </div>
       </div>
       </Router>
     );
   }
 
-  handleClick (){ this.setState(this.state)}
 
-  // componentDidUpdate() {
-  //   console.log(this.state)
-  // }
+
+  componentDidMount() {
+    console.log(this.state)
+  }
 }
 
 
