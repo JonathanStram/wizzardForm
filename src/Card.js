@@ -1,6 +1,6 @@
 import React from 'react';
 import './Card.scss';
-import './Thankyou';
+import Payplan from './Payplan'
 import { Link } from 'react-router-dom';
 import american_expres from './img/american_express_color.svg';
 import mastercard from './img/mastercard_color.svg'
@@ -17,9 +17,13 @@ class Card extends React.Component {
             title     : 'Shipping & billing details',
             subtitle  : 'You can change the shipping method',
             showModal : false,
-            term      : ''
+            term      : '',
+            active    : false,
         }
+
+
         this.handleTermChange             = this.handleTermChange.bind(this);
+        // this.toggleClass                  = this.toggleClass.bind(this);
         this.handleShow                   = this.handleShow.bind(this);
         this.handleHide                   = this.handleHide.bind(this);
         this.formIsSubmited               = this.formIsSubmited.bind(this)
@@ -30,7 +34,22 @@ class Card extends React.Component {
         this.cardNumberInputsRef4         = React.createRef();
 
     }
+    
 
+    // toggleClass(el){
+    //     this.setState({active : !this.state.active})
+    //     if (el === "Stamdant") {
+    //         console.log('hello1');
+    //     } else {
+    //         console.log("error");
+    //     }
+    //     console.log(el);
+    // }
+
+    // onChangeClassName(){
+    //     this.state.active ? "plan plan-color" : "plan plan-gray"
+
+    // }
 
     handleShow() {
         this.setState({showModal: true});
@@ -41,7 +60,8 @@ class Card extends React.Component {
     }
 
 
-    formIsSubmited(){
+    formIsSubmited(e){
+        e.preventDefault()
         console.log(this.props.handleClick);
         this.setState({showModal: true});
     }
@@ -61,28 +81,22 @@ class Card extends React.Component {
 
 
     render(){
-        let payPlan = {
-            'Stamdant' : '5$ in 10 days',
-            'Express'  : '25$ in 5 days',
-            'Premium'  : '50$ for tomorrow'
-          }
-
 
           const modal = this.state.showModal && <Thankyou>
               <div className="modal">
-                <div>
-                    With a portal, we can render content into a different
-                    part of the DOM, as if it were any other React child.
+                <div id="modal-container">
+                    <div className="modal-inner">
+                        Thank you, 
+                        {this.props.handleClick.userNameInput + ' '} 
+                        for your interest, we will be in touch shortly !                  
+                    </div>
                 </div>
-                This is being rendered inside the #modal-container div.
-                <button onClick={this.handleHide}>Hide modal</button>
+                <button className="close-modal" onClick={this.handleHide}>
+                    x
+                    
+                </button>
             </div>
           </Thankyou>
-
-        
-
-
-
 
         function nextTab(){
             let inputCollections = document.querySelectorAll('.inputs');
@@ -122,21 +136,9 @@ class Card extends React.Component {
                 console.log('2',maskFlag)
               }
         }
-
-        // let numberInputs =[]
-        //  for (let i = 0; i < 4; i++){
-        //      numberInputs.push( 
-
-        //     <input  ref={this.cardNumberInputsRef1} type="text" name="cardNumber" 
-        //     value={this.props.cardNumber} onChange={ 
-        //         this.getValueFromCardNumberInputs
-        //     } maxLength="4" inputMode='numeric' className="form-control contact-input inputs"/>
-        //  )
-        // }        
-        
+              
         return (
             <div className="Card">
-
                 <div className="pf-container">
                     <div className="pf-main">
                         <div className="card-section">
@@ -145,16 +147,7 @@ class Card extends React.Component {
                                 <h2>{this.state.title}</h2>
                                 <p>{this.state.subtitle}</p>
                                 <div className="card-wrapper df">
-                                    <div className="input-column">
-                                        {Object.keys(payPlan).map(el => {
-                                            return (
-                                                <div className="plan" key={el}>
-                                                    <h4 className="black">{el}</h4>
-                                                    <h6 className="black">{payPlan[el]}</h6>
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
+                                    <Payplan />
                                     <div className="card-column">
                                         <div className="mess-bar df">
                                             <div className="payment-sys">
@@ -250,12 +243,9 @@ class Card extends React.Component {
                                 </div>
                             </form>
                         </div>
-
                     </div>
                 </div>
-
             </div>
-            
         );
     }
 }

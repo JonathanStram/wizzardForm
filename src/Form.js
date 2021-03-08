@@ -82,7 +82,7 @@ class Form extends React.Component {
                         <div className="inpust-col">
                             <div className="is-quarter">
                                 <div className="input select-input">
-                                    <select id="country" value={this.props.userCountryInput} name="country" className="  form-control contact-input" onChange={this.changeFormValue} placeholder="">
+                                    <select id="country" onChange={this.props.changeFormValue} value={this.props.userCountryInput} name="userCountryInput" className="  form-control contact-input" placeholder="">
                                         <option value=""></option>
                                         <option value="Algeria">Algeria</option>
                                         <option value="American Samoa">American Samoa</option>

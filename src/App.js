@@ -43,7 +43,6 @@ class App extends React.Component {
     let i
     this.setState ({cardNumber: [...this.state.cardNumber, i]})
     this.setState(this.state)
-    console.log(i);
   }
 
   render() {
