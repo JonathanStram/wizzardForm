@@ -19,6 +19,7 @@ class Card extends React.Component {
             showModal : false,
             term      : '',
             active    : false,
+            plan      : ''
         }
 
 
