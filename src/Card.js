@@ -37,21 +37,6 @@ class Card extends React.Component {
     }
     
 
-    // toggleClass(el){
-    //     this.setState({active : !this.state.active})
-    //     if (el === "Stamdant") {
-    //         console.log('hello1');
-    //     } else {
-    //         console.log("error");
-    //     }
-    //     console.log(el);
-    // }
-
-    // onChangeClassName(){
-    //     this.state.active ? "plan plan-color" : "plan plan-gray"
-
-    // }
-
     handleShow() {
         this.setState({showModal: true});
     }
@@ -59,7 +44,6 @@ class Card extends React.Component {
     handleHide() {
         this.setState({showModal: false});
     }
-
 
     formIsSubmited(e){
         e.preventDefault()
@@ -147,7 +131,7 @@ class Card extends React.Component {
                             {/* onSubmit={this.formIsSubmited}  */}
                                 <h2>{this.state.title}</h2>
                                 <p>{this.state.subtitle}</p>
-                                <div className="card-wrapper df">
+                                <div className="card-wrapper">
                                     <Payplan />
                                     <div className="card-column">
                                         <div className="mess-bar df">
