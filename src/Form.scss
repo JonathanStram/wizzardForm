@@ -1,6 +1,9 @@
 .pf-form-wrapper{
     margin-top: 40px;
     justify-content: space-between;
+    @media (max-width: 768px){
+        flex-direction: column;
+    }
 }
 
 div.is-quarter {

@@ -50,21 +50,24 @@ class Card extends React.Component {
         e.preventDefault()
         console.log(this.props.handleClick); // axios <- 
         // axios.post ("http://localhost:3000/", this.props.handleClick,{
-        // axios.post ("'https://jsonplaceholder.typicode.com/todos/1'", this.props.handleClick,{
-        //     name: this.props.handleClick.userNameInput
-        // })
-        // .then(function (responce) {
-        //     console.log(responce);
-        // })
-        // .then(function (error) {
-        //     console.log(error);
-        // })
-
-
-        axios.post('https://reqres.in/api/articles', this.props.handleClick)
+        // axios.post ('http://localhost:8888/wizzard/wizzard-form/src/save_data.php', this.props.handleClick,{
+        axios.post('https://reqres.in/api/articles', this.props.handleClick.data, {
+            data: []
+    })
         .then(function (responce) {
             console.log(responce);
-        });
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+
+
+        // axios.post('https://reqres.in/api/articles', this.props.handleClick)
+        // .then(function (responce) {
+        //     console.log(responce);
+        //     setTimeout(this.setState({showModal: false}), 1000)
+            
+        // });
 
          
         this.setState({showModal: true});
