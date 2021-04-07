@@ -17,7 +17,7 @@ p{
 }
 
 .pf-container{
-    margin: auto ;
+    margin: 0 auto ;
     max-width: 1000px;
     width: 100%;
     @media (max-width: 1200px){
@@ -28,8 +28,6 @@ p{
 *{
     font-family: 'Roboto', sans-serif;
 }
-
-
 
 h2{
     font-weight: 500;

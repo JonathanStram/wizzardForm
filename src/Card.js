@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import './Card.scss';
 import Payplan from './Payplan'
 import { Link } from 'react-router-dom';
@@ -47,7 +48,25 @@ class Card extends React.Component {
 
     formIsSubmited(e){
         e.preventDefault()
-        console.log(this.props.handleClick);
+        console.log(this.props.handleClick); // axios <- 
+        // axios.post ("http://localhost:3000/", this.props.handleClick,{
+        // axios.post ("'https://jsonplaceholder.typicode.com/todos/1'", this.props.handleClick,{
+        //     name: this.props.handleClick.userNameInput
+        // })
+        // .then(function (responce) {
+        //     console.log(responce);
+        // })
+        // .then(function (error) {
+        //     console.log(error);
+        // })
+
+
+        axios.post('https://reqres.in/api/articles', this.props.handleClick)
+        .then(function (responce) {
+            console.log(responce);
+        });
+
+         
         this.setState({showModal: true});
     }
 
