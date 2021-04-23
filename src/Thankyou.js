@@ -16,16 +16,13 @@ class Thankyou extends Component {
         document.body.removeChild(this.el);
       }
 
-
-
-
     render() {
         return ReactDOM.createPortal(
         this.props.children,
         // A DOM element
         this.el,
 
-        <h1>asdad</h1>
+        <h1>Thankyou</h1>
         );
     }
 }

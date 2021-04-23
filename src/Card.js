@@ -20,16 +20,21 @@ class Card extends React.Component {
             showModal : false,
             term      : '',
             active    : false,
-            plan      : ''
+            plan      : '',
+            arrowClass: null
         }
 
 
         this.handleTermChange             = this.handleTermChange.bind(this);
-        // this.toggleClass                  = this.toggleClass.bind(this);
         this.handleShow                   = this.handleShow.bind(this);
         this.handleHide                   = this.handleHide.bind(this);
         this.formIsSubmited               = this.formIsSubmited.bind(this)
+        this.afterArrow                   = this.afterArrow.bind(this)
+        this.afterArrowOne                = this.afterArrowOne.bind(this)
+        this.afterArrowThree              = this.afterArrowThree.bind(this)
         this.getValueFromCardNumberInputs = this.getValueFromCardNumberInputs.bind(this)
+        this.setTimer                     = this.setTimer.bind(this)
+        this.setNewClass                  = this.setNewClass.bind(this)
         this.cardNumberInputsRef1         = React.createRef();
         this.cardNumberInputsRef2         = React.createRef();
         this.cardNumberInputsRef3         = React.createRef();
@@ -46,35 +51,57 @@ class Card extends React.Component {
         this.setState({showModal: false});
     }
 
+    setTimer () {
+        setTimeout( () => { this.handleHide() }, 2000 )
+    }
+
+
     formIsSubmited(e){
         e.preventDefault()
-        console.log(this.props.handleClick); // axios <- 
-        // axios.post ("http://localhost:3000/", this.props.handleClick,{
-        // axios.post ('http://localhost:8888/wizzard/wizzard-form/src/save_data.php', this.props.handleClick,{
-        axios.post('https://reqres.in/api/articles', this.props.handleClick.data, {
-            data: []
-    })
+        console.log(this.props.handleClick); 
+        this.cardNumberInputsRef1.current.value = '';
+        this.cardNumberInputsRef2.current.value = '';
+        this.cardNumberInputsRef3.current.value = '';
+        this.cardNumberInputsRef4.current.value = '';
+
+        console.log(this);
+
+        axios.post('https://reqres.in/api/articles', this.props.handleClick, this.setTimer())
         .then(function (responce) {
-            console.log(responce);
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
-
-
-        // axios.post('https://reqres.in/api/articles', this.props.handleClick)
-        // .then(function (responce) {
-        //     console.log(responce);
-        //     setTimeout(this.setState({showModal: false}), 1000)
-            
-        // });
-
-         
+            console.log(responce.data);           
+        });
         this.setState({showModal: true});
     }
 
     handleTermChange(e) {
         this.setState({term: e.target.value});
+    }
+
+    afterArrow(){
+        this.setState({arrowClass : 0})
+        console.log('one');
+        
+    }
+    afterArrowOne(){
+        this.setState({arrowClass : 1})
+        console.log('two');
+        
+    }
+    afterArrowThree(){
+        this.setState({arrowClass : 2});
+        console.log('three');
+    }
+
+    setNewClass(){
+        if (this.state.arrowClass == 0){
+            return "mess-bar-active-1"
+        }
+        if (this.state.arrowClass == 1){
+            return "mess-bar-active-2"
+        }
+        if (this.state.arrowClass == 2){
+            return "mess-bar-active-3"
+        }
     }
 
     getValueFromCardNumberInputs(){
@@ -100,7 +127,6 @@ class Card extends React.Component {
                 </div>
                 <button className="close-modal" onClick={this.handleHide}>
                     x
-                    
                 </button>
             </div>
           </Thankyou>
@@ -149,14 +175,13 @@ class Card extends React.Component {
                 <div className="pf-container">
                     <div className="pf-main">
                         <div className="card-section">
-                            <form >
-                            {/* onSubmit={this.formIsSubmited}  */}
+                            <form onSubmit={this.formIsSubmited} >
                                 <h2>{this.state.title}</h2>
                                 <p>{this.state.subtitle}</p>
                                 <div className="card-wrapper">
-                                    <Payplan />
+                                    <Payplan afterArrow={this.afterArrow} afterArrowOne={this.afterArrowOne} afterArrowThree={this.afterArrowThree} cardState={this.state.arrowClass}/>
                                     <div className="card-column">
-                                        <div className="mess-bar df">
+                                        <div className={`mess-bar df ${this.setNewClass()}`}>
                                             <div className="payment-sys">
                                                 <h6>Payment method</h6>
                                                 <div className="input-row df">
@@ -190,6 +215,7 @@ class Card extends React.Component {
                                                     <div className="card-number" onInput={nextTab} >
                                                         <label className="inputLabel" aria-label="Phone">Card number</label>
                                                         <input  
+                                                            required
                                                             ref={this.cardNumberInputsRef1} type="text" name="cardNumber" 
                                                             value={this.props.cardNumber} 
                                                             onChange={ this.getValueFromCardNumberInputs} 
@@ -198,6 +224,7 @@ class Card extends React.Component {
                                                             className="form-control contact-input inputs"
                                                         />
                                                         <input  
+                                                            required
                                                             ref={this.cardNumberInputsRef2} type="text" name="cardNumber" 
                                                             value={this.props.cardNumber} 
                                                             onChange={ this.getValueFromCardNumberInputs} 
@@ -206,6 +233,7 @@ class Card extends React.Component {
                                                             className="form-control contact-input inputs"
                                                         />
                                                         <input  
+                                                            required
                                                             ref={this.cardNumberInputsRef3} type="text" name="cardNumber" 
                                                             value={this.props.cardNumber}
                                                             onChange={this.getValueFromCardNumberInputs} 
@@ -213,7 +241,8 @@ class Card extends React.Component {
                                                             inputMode='numeric' 
                                                             className="form-control contact-input inputs"
                                                         />
-                                                        <input  
+                                                        <input 
+                                                            required 
                                                             ref={this.cardNumberInputsRef4} type="text" name="cardNumber" 
                                                             value={this.props.cardNumber}
                                                             onChange={ this.getValueFromCardNumberInputs}
@@ -226,12 +255,12 @@ class Card extends React.Component {
                                                     <div className="card-data">
                                                         <div className="expiration-date">
                                                             <label className="inputLabel" aria-label="Phone">Expiration date</label>
-                                                            <input type="text" name="cardExpireDate" value={this.props.cardExpireDate} onChange={this.props.changeFormValue} maxLength="5" title="title" className="form-control contact-input" id="date"  ref={dateInput} onInput={dateMask}/>
+                                                            <input type="text" name="cardExpireDate" required value={this.props.cardExpireDate} onChange={this.props.changeFormValue} maxLength="5" title="title" className="form-control contact-input" id="date"  ref={dateInput} onInput={dateMask}/>
                                                         </div>
                                                         <div className="card-cvv">
                                                             <div></div>
                                                             <label className="inputLabel" inputMode='numeric' aria-label="Phone">CVC/CVV</label>
-                                                            <input type="text" name="cardCVV" value={this.props.cardCVV} onChange={this.props.changeFormValue} maxLength="3" inputMode='numeric' className="form-control contact-input" id="cvv"/>
+                                                            <input type="password" name="cardCVV" required value={this.props.cardCVV} onChange={this.props.changeFormValue} maxLength="3" inputMode='numeric' className="form-control contact-input" id="cvv"/>
                                                         </div>
                                                     </div> 
                                                 </div>
@@ -244,7 +273,7 @@ class Card extends React.Component {
                                         <Link to={`/`}><button type='button' className="back-button btn" >back</button></Link>
                                     </div>
                                     <div className="submit-wrapper df">
-                                        <button type="button"  onClick={this.formIsSubmited} className="submit btn" >submit</button>
+                                        <button type="submit"   className="submit btn" >submit</button>
                                         {modal}
                                     </div>
                                 </div>

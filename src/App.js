@@ -31,13 +31,15 @@ class App extends React.Component {
   }
 
   changeFormValue(e) {
-    const {name, value}=e.target
+    const {name, value, checked}=e.target
     e.preventDefault();
     this.setState({ [name]: value })
       if(e.target.name === "cardNumber"){
         this.setState({ cardNumber: [...this.state.cardNumber, value] })
       }
-      
+      if(e.target.name === "userAcceptTerms"){
+        this.setState({ userAcceptTerms:  checked })
+      }
   }
   handleClick (){ 
     let i

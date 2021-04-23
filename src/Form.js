@@ -9,9 +9,18 @@ class Form extends React.Component {
     constructor(props){
         super(props);
         this.state = {
- 
+            disabled : false
         }
         this.submitTheForm   = this.submitTheForm.bind(this);
+        this.isDisabled      = this.isDisabled.bind(this);
+    }
+
+    isDisabled(){
+        if (this.state.disabled === false ) {
+            this.setState({disabled: true})
+        } else {
+            this.setState({disabled: false})
+        }
     }
     
 
@@ -43,13 +52,13 @@ class Form extends React.Component {
                         <div className="inpust-row">
                             <div className="is-quarter">
                                 <div className="input">
-                                    <input value={this.props.userNameInput} name="userNameInput" onChange={this.props.changeFormValue}  className="form-control contact-input"/>
+                                    <input value={this.props.userNameInput} required name="userNameInput" onChange={this.props.changeFormValue}  className="form-control contact-input"/>
                                     <label className="inputLabel" aria-label="Full Name" >Name</label>
                                 </div>
                             </div>
                             <div className="is-quarter">
                                 <div className="input">
-                                    <input value={this.props.userSurnameInput} name="userSurnameInput" onChange={this.props.changeFormValue} className="form-control contact-input"/>
+                                    <input value={this.props.userSurnameInput} required name="userSurnameInput" onChange={this.props.changeFormValue} className="form-control contact-input"/>
                                     <label className="inputLabel" aria-label="SurName">{userLabel.userSurname}</label>
                                 </div>
                             </div>
@@ -63,7 +72,7 @@ class Form extends React.Component {
                             </div>
                             <div className="is-quarter">
                                 <div className="mail-input email-input">
-                                    <input type="email" value={this.props.userEmailInput} name="userEmailInput" onChange={this.props.changeFormValue} className="form-control contact-input"/>
+                                    <input type="email" value={this.props.userEmailInput} required name="userEmailInput" onChange={this.props.changeFormValue} className="form-control contact-input"/>
                                     <label className="inputLabel" aria-label="Email">{userLabel.userEmail}</label>
                                     <span className="material-icons">
                                         mail_outline
@@ -155,16 +164,17 @@ class Form extends React.Component {
                                 </div>
                             </div>
                             <div className="acception-row row df">
-                                <input name="userAcceptTerms" type="checkbox" onChange={this.props.changeFormValue} id=""/>
+                                <input name="userAcceptTerms" type="checkbox" onChange={this.props.changeFormValue, this.isDisabled} id=""/>
                                 <h6>I accept Terms and Service</h6>
                             </div>
                         </div>
                     </div>
                 </div>
-                </form>
                 <div className="submit-wrapper df">
-                    <Link to={`/Card`}><button type="submit" className="submit btn" > next</button></Link>
+                    <Link to={`/Card`}><button  disabled={this.state.disabled === false} type="submit" className="submit btn" > next</button></Link>
                 </div>
+                </form>
+                
             </div>
         );
     }
