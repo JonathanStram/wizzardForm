@@ -332,3 +332,11 @@
         }
     }
   }
+
+  .pay-sys-img{
+    filter: grayscale(100%);
+  }
+
+  .active-pay-sys{
+    filter: grayscale(0%);
+  }
