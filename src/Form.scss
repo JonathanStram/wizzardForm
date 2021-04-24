@@ -1,7 +1,8 @@
 .pf-form-wrapper{
     margin-top: 40px;
     justify-content: space-between;
-    @media (max-width: 768px){
+    flex-wrap: wrap;
+    @media (max-width: 991px){
         flex-direction: column;
     }
 }
@@ -19,16 +20,48 @@ div.is-quarter {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    @media (max-width: 991px){
-        flex-direction: row;
-    }
+    // @media (max-width: 991px){
+    //     flex-direction: row;
+    // }
 }
 
+.p-r{
+    position: relative;
+}
+
+.p-a{
+    position: absolute;
+}
+
+.file-input{
+    border: none;
+    width: 20%;
+    right: 0;
+}
+.link{
+    text-decoration: none;
+}
 .inpust-row{
     display: flex;
     justify-content: space-between;
     .is-quarter{
         width: 48%;
+    }
+}
+
+.file-input{
+    display: none;
+}
+.file-input-label{
+    position: absolute;
+    right: -22%;
+    top: 50%;
+    cursor: pointer;
+    outline: none;
+    color: #F57E80;
+    &::before{
+        content: '+';
+        margin-right: 5px;
     }
 }
 

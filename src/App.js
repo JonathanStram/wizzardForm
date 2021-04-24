@@ -4,6 +4,7 @@ import Form from './Form';
 import './App.scss';
 import Card from './Card';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
+import Terms from './Terms';
 
 
 
@@ -24,10 +25,12 @@ class App extends React.Component {
         cardNumber        : [],
         cardCVV           : '',
         cardExpireDate    : '',
-        userAcceptTerms   : ''
+        userAcceptTerms   : '',
+        companyLogo       : null
       }
       this.changeFormValue = this.changeFormValue.bind(this);
       this.handleClick = this.handleClick.bind(this);
+
   }
 
   changeFormValue(e) {
@@ -39,6 +42,9 @@ class App extends React.Component {
       }
       if(e.target.name === "userAcceptTerms"){
         this.setState({ userAcceptTerms:  checked })
+      }
+      if(e.target.name === "companyLogo"){
+        this.setState({companyLogo: e.target.files[0]})
       }
   }
   handleClick (){ 
@@ -56,17 +62,12 @@ class App extends React.Component {
         <div className="pf-container">
           <Route exact path="/" render={ () => <Form handleClick={this.state}  changeFormValue={this.changeFormValue} />}/>
           <Route exact path="/Card" render={ () => <Card handleClick={this.state} changeFormValue={this.changeFormValue}/> }/>
+          <Route exact path="/Terms" render={ () => <Terms handleClick={this.state} changeFormValue={this.changeFormValue}/> }/>
         </div>
       </div>
       </Router>
     );
   }
-
-
-
-  // componentDidMount() {
-  //   console.log(this.state)
-  // }
 }
 
 

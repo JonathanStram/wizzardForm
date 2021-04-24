@@ -15,15 +15,6 @@ function Payplan (props) {
         ],
     })
 
-    function test() {
-        props.afterArrow()
-    }
-    function testOne() {
-        props.afterArrowOne()
-    }
-    function testTree() {
-        props.afterArrowThree()
-    }
 
     function toggleActive (index) {
         changePlan({ ...appState, activeObject : appState.planObject[index] })
@@ -32,16 +23,13 @@ function Payplan (props) {
 
     function toggleCardState(index) {
         if (index == 0){
-            test(props)
-            console.log('one');
+            props.afterArrow()
         }
         if (index == 1){
-            console.log('><><><><><');
-            testOne(props)
+            props.afterArrowOne()
         }
         if (index == 2){
-            console.log('hI <<<<<');
-            testTree(props)
+            props.afterArrowThree()
         }
     }
 
@@ -50,7 +38,6 @@ function Payplan (props) {
     function toggleActiveStyle (index) {
         
         if (appState.planObject[index] === appState.activeObject) {
-            // showMessage()
             return "plan plan-color"
         } else {
             return "plan plan-gray"
@@ -64,8 +51,7 @@ function Payplan (props) {
                     key={index} 
                     className={toggleActiveStyle(index)} 
                     onClick={() => {
-                        toggleActive(index)
-                        
+                        toggleActive(index)   
                     }}>
                     <h4>{elements.title}</h4>
                     <h6>{elements.subtitle}</h6>

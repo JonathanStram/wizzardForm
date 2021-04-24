@@ -1,7 +1,8 @@
 import React from 'react';
 import './Form.scss';
+import LinkTo from './LinkTo';
 import { Link } from 'react-router-dom';
-// import {createBrowserHistory} from 'history';
+
 
 
 
@@ -11,8 +12,9 @@ class Form extends React.Component {
         this.state = {
             disabled : false
         }
-        this.submitTheForm   = this.submitTheForm.bind(this);
-        this.isDisabled      = this.isDisabled.bind(this);
+        this.submitTheForm    = this.submitTheForm.bind(this);
+        this.isDisabled       = this.isDisabled.bind(this);
+        this.handleValidation = this.handleValidation.bind(this);
     }
 
     isDisabled(){
@@ -27,6 +29,19 @@ class Form extends React.Component {
     submitTheForm(e) {
         e.preventDefault();
         console.log('-----', this.props.handleClick);
+        if (   !this.props.handleClick.userNameInput 
+            && !this.props.handleClick.userSurnameInput 
+            && !this.props.handleClick.userEmailInput
+            && !this.props.handleClick.userPhoneInput
+            && !this.props.handleClick.userCountryInput ){
+            console.log('>>>>>>>>>>>>>> EMPTY >>>>>>>>');
+            this.setState({disabled: true})
+        }
+    }
+
+    handleValidation(){
+        console.log(this.props.handleClick);
+    
     }
 
 
@@ -65,9 +80,11 @@ class Form extends React.Component {
                         </div>
                         <div className="inpust-col">
                             <div className="is-quarter">
-                                <div className="input">
+                                <div className="input p-r">
                                     <input value={this.props.userCompanyInput} name="userCompanyInput" onChange={this.props.changeFormValue} className="form-control contact-input"/>
                                     <label className="inputLabel" aria-label="CompanyName">{userLabel.userCompany}</label>
+                                    <input title='Add File' type="file" id="company-file" className="p-a file-input"  name="companyLogo" onChange={this.props.changeFormValue} />
+                                    <label tabIndex="0" htmlFor="company-file" className="file-input-label">Add Logo</label>
                                 </div>
                             </div>
                             <div className="is-quarter">
@@ -164,14 +181,15 @@ class Form extends React.Component {
                                 </div>
                             </div>
                             <div className="acception-row row df">
-                                <input name="userAcceptTerms" type="checkbox" onChange={this.props.changeFormValue, this.isDisabled} id=""/>
-                                <h6>I accept Terms and Service</h6>
+                                <input name="userAcceptTerms" required type="checkbox" onChange={this.props.changeFormValue} id=""/>
+                                <Link className="link" to={`/Terms`}><h6 >I accept Terms and Service</h6></Link>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="submit-wrapper df">
-                    <Link to={`/Card`}><button  disabled={this.state.disabled === false} type="submit" className="submit btn" > next</button></Link>
+                    <LinkTo handleClick={this.props.handleClick} onClick={this.handleValidation}/>
+                    {/* <Link onChange={this.handleValidation()} to={`/Card`}><button   disabled={this.state.disabled === false} type="submit" className="submit btn" > next</button></Link> */}
                 </div>
                 </form>
                 

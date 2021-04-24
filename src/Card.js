@@ -35,6 +35,7 @@ class Card extends React.Component {
         this.getValueFromCardNumberInputs = this.getValueFromCardNumberInputs.bind(this)
         this.setTimer                     = this.setTimer.bind(this)
         this.setNewClass                  = this.setNewClass.bind(this)
+        this.selectPaySystem              = this.selectPaySystem.bind(this)
         this.cardNumberInputsRef1         = React.createRef();
         this.cardNumberInputsRef2         = React.createRef();
         this.cardNumberInputsRef3         = React.createRef();
@@ -78,18 +79,13 @@ class Card extends React.Component {
     }
 
     afterArrow(){
-        this.setState({arrowClass : 0})
-        console.log('one');
-        
+        this.setState({arrowClass : 0})        
     }
     afterArrowOne(){
-        this.setState({arrowClass : 1})
-        console.log('two');
-        
+        this.setState({arrowClass : 1})        
     }
     afterArrowThree(){
         this.setState({arrowClass : 2});
-        console.log('three');
     }
 
     setNewClass(){
@@ -103,6 +99,13 @@ class Card extends React.Component {
             return "mess-bar-active-3"
         }
     }
+    selectPaySystem(system){
+        console.log("hello");
+        let images = document.querySelectorAll('.pay-sys-img')
+        for (let i = 0; i < images.length; i++){
+            images[system].classList.add('active-pay-sys')
+        }
+    }
 
     getValueFromCardNumberInputs(){
         let valueBacket = '';
@@ -111,7 +114,27 @@ class Card extends React.Component {
                     + this.cardNumberInputsRef3.current.value + ' '
                     + this.cardNumberInputsRef4.current.value + ' '
         this.props.handleClick.cardNumber = valueBacket
+
+        if (this.cardNumberInputsRef1.current.value >= '2221' && this.cardNumberInputsRef1.current.value <= '2720'){
+            this.selectPaySystem(1)
+        }
+        if (this.cardNumberInputsRef1.current.value === '34' || this.cardNumberInputsRef1.current.value == '37'){
+            this.selectPaySystem(0)
+        }
+        if (this.cardNumberInputsRef1.current.value === '4'){
+            this.selectPaySystem(2)
+        }
+        if (this.cardNumberInputsRef1.current.value === '65' || this.cardNumberInputsRef1.current.value === '6011'){
+            this.selectPaySystem(3)
+        }
+        if (this.cardNumberInputsRef1.current.value === '866'){
+            this.selectPaySystem(4)
+        }
+        if (this.cardNumberInputsRef1.current.value >= '1111' && this.cardNumberInputsRef1.current.value <= '2000'){
+            this.selectPaySystem(5)
+        }
     }
+    
 
 
     render(){
@@ -186,24 +209,24 @@ class Card extends React.Component {
                                                 <h6>Payment method</h6>
                                                 <div className="input-row df">
                                                     <div className="pay-sys">
-                                                        <img src={american_expres} alt="american-express"/>
+                                                        <img src={american_expres} className="pay-sys-img" alt="american-express" onChange={this.selectPaySystem}/>
                                                     </div>
                                                     <div className="pay-sys">
-                                                        <img src={mastercard} alt="mastercard"/>
+                                                        <img src={mastercard} alt="mastercard" className="pay-sys-img" onChange={this.selectPaySystem}/>
                                                     </div>
                                                     <div className="pay-sys">
-                                                        <img src={visa} alt="visa"/>
+                                                        <img src={visa} alt="visa" className="pay-sys-img" onChange={this.selectPaySystem}/>
                                                     </div>
                                                     <div className="pay-sys">
-                                                        <img src={discover} alt="discover"/>
+                                                        <img src={discover} alt="discover" className="pay-sys-img" onChange={this.selectPaySystem}/>
                                                     </div>
                                                 </div>
                                                 <div className="input-column">
                                                     <div className="pay-sys">
-                                                        <img src={pay_pal} alt="pay-pal"/>
+                                                        <img src={pay_pal} alt="pay-pal" className="pay-sys-img" onChange={this.selectPaySystem}/>
                                                     </div>
                                                     <div className="pay-sys">
-                                                        <img src={amazon_pay} alt="amazon-pay"/>
+                                                        <img src={amazon_pay} alt="amazon-pay" className="pay-sys-img" onChange={this.selectPaySystem}/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -216,7 +239,7 @@ class Card extends React.Component {
                                                         <label className="inputLabel" aria-label="Phone">Card number</label>
                                                         <input  
                                                             required
-                                                            ref={this.cardNumberInputsRef1} type="text" name="cardNumber" 
+                                                            ref={this.cardNumberInputsRef1} type="number" name="cardNumber" 
                                                             value={this.props.cardNumber} 
                                                             onChange={ this.getValueFromCardNumberInputs} 
                                                             maxLength="4" 
@@ -225,7 +248,7 @@ class Card extends React.Component {
                                                         />
                                                         <input  
                                                             required
-                                                            ref={this.cardNumberInputsRef2} type="text" name="cardNumber" 
+                                                            ref={this.cardNumberInputsRef2} type="number" name="cardNumber" 
                                                             value={this.props.cardNumber} 
                                                             onChange={ this.getValueFromCardNumberInputs} 
                                                             maxLength="4"
@@ -234,7 +257,7 @@ class Card extends React.Component {
                                                         />
                                                         <input  
                                                             required
-                                                            ref={this.cardNumberInputsRef3} type="text" name="cardNumber" 
+                                                            ref={this.cardNumberInputsRef3} type="number" name="cardNumber" 
                                                             value={this.props.cardNumber}
                                                             onChange={this.getValueFromCardNumberInputs} 
                                                             maxLength="4" 
@@ -243,7 +266,7 @@ class Card extends React.Component {
                                                         />
                                                         <input 
                                                             required 
-                                                            ref={this.cardNumberInputsRef4} type="text" name="cardNumber" 
+                                                            ref={this.cardNumberInputsRef4} type="number" name="cardNumber" 
                                                             value={this.props.cardNumber}
                                                             onChange={ this.getValueFromCardNumberInputs}
                                                             maxLength="4" 
