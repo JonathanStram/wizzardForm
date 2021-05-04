@@ -112,6 +112,7 @@ input {
     padding: 12px;
     font-size: 16px;
     transition: 0.1s;
+    outline: none;
     &:focus {
         border-color: none;
         box-shadow: none;
