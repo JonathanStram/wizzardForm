@@ -36,6 +36,7 @@ class Card extends React.Component {
         this.setTimer                     = this.setTimer.bind(this)
         this.setNewClass                  = this.setNewClass.bind(this)
         this.selectPaySystem              = this.selectPaySystem.bind(this)
+        this.removeClassPaySystem         = this.removeClassPaySystem.bind(this)
         this.cardNumberInputsRef1         = React.createRef();
         this.cardNumberInputsRef2         = React.createRef();
         this.cardNumberInputsRef3         = React.createRef();
@@ -59,13 +60,10 @@ class Card extends React.Component {
 
     formIsSubmited(e){
         e.preventDefault()
-        console.log(this.props.handleClick); 
         this.cardNumberInputsRef1.current.value = '';
         this.cardNumberInputsRef2.current.value = '';
         this.cardNumberInputsRef3.current.value = '';
         this.cardNumberInputsRef4.current.value = '';
-
-        console.log(this);
 
         axios.post('https://reqres.in/api/articles', this.props.handleClick, this.setTimer())
         .then(function (responce) {
@@ -89,21 +87,27 @@ class Card extends React.Component {
     }
 
     setNewClass(){
-        if (this.state.arrowClass == 0){
+        if (this.state.arrowClass === 0){
             return "mess-bar-active-1"
         }
-        if (this.state.arrowClass == 1){
+        if (this.state.arrowClass === 1){
             return "mess-bar-active-2"
         }
-        if (this.state.arrowClass == 2){
+        if (this.state.arrowClass === 2){
             return "mess-bar-active-3"
         }
     }
     selectPaySystem(system){
-        console.log("hello");
         let images = document.querySelectorAll('.pay-sys-img')
         for (let i = 0; i < images.length; i++){
             images[system].classList.add('active-pay-sys')
+        }
+    }
+
+    removeClassPaySystem(system){
+        let images = document.querySelectorAll('.pay-sys-img')
+        for (let i = 0; i < images.length; i++){
+            images[system].classList.remove('active-pay-sys')
         }
     }
 
@@ -117,22 +121,25 @@ class Card extends React.Component {
 
         if (this.cardNumberInputsRef1.current.value >= '2221' && this.cardNumberInputsRef1.current.value <= '2720'){
             this.selectPaySystem(1)
-        }
-        if (this.cardNumberInputsRef1.current.value === '34' || this.cardNumberInputsRef1.current.value == '37'){
+        } else this.removeClassPaySystem(1)
+        if (this.cardNumberInputsRef1.current.value === '34' || this.cardNumberInputsRef1.current.value === '37'){
             this.selectPaySystem(0)
-        }
+        } else this.removeClassPaySystem(0)
         if (this.cardNumberInputsRef1.current.value === '4'){
             this.selectPaySystem(2)
-        }
+        } else this.removeClassPaySystem(2)
         if (this.cardNumberInputsRef1.current.value === '65' || this.cardNumberInputsRef1.current.value === '6011'){
             this.selectPaySystem(3)
-        }
+        } else this.removeClassPaySystem(3)
         if (this.cardNumberInputsRef1.current.value === '866'){
             this.selectPaySystem(4)
-        }
+        } else this.removeClassPaySystem(4)
         if (this.cardNumberInputsRef1.current.value >= '1111' && this.cardNumberInputsRef1.current.value <= '2000'){
             this.selectPaySystem(5)
-        }
+        } else this.removeClassPaySystem(5)
+        // if (this.cardNumberInputsRef1.current.value == ''){
+        //     this.removeClassPaySystem()
+        // }
     }
     
 
@@ -273,7 +280,6 @@ class Card extends React.Component {
                                                             inputMode='numeric' 
                                                             className="form-control contact-input inputs"
                                                         />
-                                                            {/* {numberInputs} */}
                                                     </div>
                                                     <div className="card-data">
                                                         <div className="expiration-date">

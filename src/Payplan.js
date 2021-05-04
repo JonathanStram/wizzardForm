@@ -22,13 +22,13 @@ function Payplan (props) {
     }
 
     function toggleCardState(index) {
-        if (index == 0){
+        if (index === 0){
             props.afterArrow()
         }
-        if (index == 1){
+        if (index === 1){
             props.afterArrowOne()
         }
-        if (index == 2){
+        if (index === 2){
             props.afterArrowThree()
         }
     }

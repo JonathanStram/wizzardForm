@@ -28,13 +28,11 @@ class Form extends React.Component {
 
     submitTheForm(e) {
         e.preventDefault();
-        console.log('-----', this.props.handleClick);
         if (   !this.props.handleClick.userNameInput 
             && !this.props.handleClick.userSurnameInput 
             && !this.props.handleClick.userEmailInput
             && !this.props.handleClick.userPhoneInput
             && !this.props.handleClick.userCountryInput ){
-            console.log('>>>>>>>>>>>>>> EMPTY >>>>>>>>');
             this.setState({disabled: true})
         }
     }
